@@ -52,6 +52,35 @@ defmodule Monetized.Money do
 
   @doc """
 
+  Determines if two Money structs are equal, which requires both their Decimal 
+  "value" and their string "currency" to be equal individually.
+
+  """
+  @spec equal?(t(), t()) :: boolean
+  def equal?(
+    %Monetized.Money{
+      value: first_value,
+      currency: first_currency
+    }, 
+    %Monetized.Money{
+      value: second_value,
+      currency: second_currency
+    }) do
+    first_value == second_value && first_currency == second_currency
+  end
+
+  @doc """
+
+  Determines if when the type is embedded into a struct if it should be 
+  run through `dump` or just embedded as it self, for the moment it will
+  always return `self`.
+
+  """
+  @spec embed_as(atom()) :: :self
+  def embed_as(_format), do: :self
+
+  @doc """
+
   Casts the given value to money.
 
   It supports:
