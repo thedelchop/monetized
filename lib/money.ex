@@ -65,7 +65,7 @@ defmodule Monetized.Money do
     * An `Monetized.Money` struct.
 
   """
-
+  @spec cast(t() | map | String.t() | list | float) :: {:ok, t()} | :error
   def cast(%Monetized.Money{} = money) do
     {:ok, money}
   end
@@ -102,7 +102,7 @@ defmodule Monetized.Money do
   saving to the db. ie: "100.50 EUR"
 
   """
-
+  @spec dump(t()) :: {:ok, String.t()} | :error
   def dump(%Monetized.Money{} = money) do
     {:ok, Monetized.Money.to_string(money, [currency_code: true])}
   end
@@ -116,6 +116,7 @@ defmodule Monetized.Money do
 
   """
 
+  @spec load(String.t()) :: {:ok, t()} | :error
   def load(m) when is_bitstring(m) do
     {:ok, Monetized.Money.make(m)}
   end
